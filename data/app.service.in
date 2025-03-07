@@ -1,0 +1,19 @@
+[Unit]
+Description=Lotus Shell
+After=multi-user.target
+Requires=network.target
+ConditionVirtualization=!container
+
+[Service]
+Type=service
+ExecStart=@BINARY
+StandardError=null
+Restart=on-abort
+ProtectSystem=true
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
+User=root
+
+[Install]
+WantedBy=multi-user.target

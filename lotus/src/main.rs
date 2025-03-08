@@ -17,32 +17,22 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-mod app;
 mod i18n;
+mod meson;
 mod views;
 
-use spacelink_base::config;
-#[cfg(feature = "use-feedbackd")]
-use spacelink_base::meson;
-
-fn main() -> cosmic::iced::Result {
+fn main() {
     // Get the system's preferred languages.
     let requested_languages = i18n_embed::DesktopLanguageRequester::requested_languages();
 
     // Enable localizations to be applied.
     i18n::init(&requested_languages);
 
-    // Settings for configuring the application window and iced runtime.
-    let settings = cosmic::app::Settings::default()
-        .size_limits(cosmic::iced::Limits::NONE.min_width(360.0).min_height(150.0))
-        .size(cosmic::iced::Size::new(360.0, 576.0));
-
     // Initialize Lfb for haptic feedback.
     #[cfg(feature = "use-feedbackd")]
     if let Err(lfb_error) = libfeedback::init(meson::APP_ID) {
-        tracing::error!("Failed to initialize Lfb for haptic feedback: {}", lfb_error);
+        println!("Failed to initialize Lfb for haptic feedback: {}", lfb_error);
     }
 
-    // Starts the application's event loop with `()` as the application's flags.
-    cosmic::app::run::<app::Spacelink>(settings, config::flags())
+    println!("Halal world");
 }

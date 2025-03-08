@@ -1,3 +1,27 @@
+# ----- Generated Source Files ----- #
+
+pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
+
+conf = configuration_data()
+conf.set_quoted('APP_ID', app_id)
+conf.set_quoted('VERSION', meson.project_version())
+conf.set_quoted('LOCALEDIR', get_option('prefix') / get_option('localedir'))
+conf.set_quoted('PKGDATADIR', pkgdatadir)
+
+configure_file(
+  input: 'src/meson.rs.in',
+  output: 'meson.rs',
+  configuration: conf
+)
+
+# Copy the meson.rs source file to the source directory.
+run_command(
+  'cp',
+  meson.project_build_root() / 'lotus' / 'meson.rs',
+  meson.project_source_root() / 'lotus' / 'src' / 'meson.rs',
+  check: true
+)
+
 # ----- Cargo Build ----- #
 
 crate_cargo_opts = [ '--package', base_binary ]

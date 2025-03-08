@@ -562,6 +562,7 @@ dependencies = [
  "i18n-embed",
  "i18n-embed-fl",
  "libfeedback",
+ "rust-embed",
  "vergen",
 ]
 

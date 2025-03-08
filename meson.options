@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (c) 2025 Max Rodriguez <me@maxrdz.com>
 
-option('profile', type: 'combo', choices: ['release', 'debug'], value: 'release', description: 'The build profile for Spacelink. `release` or `debug`.')
-\
+option('profile', type: 'combo', choices: ['release', 'debug'], value: 'release', description: 'The build profile for Lotus. `release` or `debug`.')
+
 option('target', type: 'string', value: '', description: 'Rustc cross-compilation target triple. Default is an empty string, which compiles natively.')
 option('cross-verbose', type: 'boolean', value: false, description: 'Appends the -v flag when invoking cross. Applies if cross compiling.')
 

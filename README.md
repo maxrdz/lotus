@@ -2,7 +2,7 @@
     <img src="./data/icons/hicolor/scalable/apps/icon.svg">
     <h1>Lotus</h1>
     <p>
-        The <b>L</b>ightweight <b>O</b>pen-source <b>T</b>ouchscreen
+        The <b>L</b>ightweight <b>O</b>pen Source <b>T</b>ouchscreen
         <b>U</b>ser <b>S</b>hell
     </p>
     <a href="https://gitlab.com/maxrdz/lotus/-/pipelines/latest"><img src="https://gitlab.com/maxrdz/lotus/badges/master/pipeline.svg" alt="Pipeline" /></a>
@@ -10,16 +10,17 @@
 
 ## Project Mission
 
-To deliver a lightweight, touchscreen-friendly shell for GNU/Linux mobile
-devices that provides the **bare minimum set of features** to use your mobile
-device (launch apps, simple dashboard for clock and battery info, etc.) while
-consuming the **least possible amount of system resources**. (CPU time, memory,
-etc.)
+To deliver a lightweight, modular, touchscreen-friendly shell for GNU/Linux
+mobile devices that provides the **bare minimum set of features** to use your
+mobile device (launch apps, simple dashboard for clock and battery info, etc.)
+while providing a modular system for extending the shell. The stock shell
+should consume the **least possible amount of system resources**. (CPU time,
+memory, etc.)
 
-The user experience should be **modern, respectful, and elegant**. This includes
-**internationalization** support. The shell should have **zero integration with
-any existing desktop environment ecosystem**. (GNOME, KDE, COSMIC, etc.) The
-mobile shell should make use of Freedesktop (XDG) standards.
+The user experience should be **modern, respectful, and elegant**. This
+includes **internationalization** support. The stock shell should have **zero
+integration with any existing desktop environment ecosystem**. (GNOME, KDE,
+COSMIC, etc.) The mobile shell should make use of Freedesktop (XDG) standards.
 
 ## Building
 

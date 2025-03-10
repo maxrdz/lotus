@@ -79,7 +79,7 @@ meson compile -C build
 
 Copyright (c) 2025 Max Rodriguez <me@maxrdz.com>
 
-"Lotus" can be found at https://gitlab.com/maxrdz/lotus
+"Lotus" can be found at https://gitlab.com/lotus-shell/lotus
 
 "Lotus" is distributed under the terms of the GNU General Public
 License, either version 3.0 or, at your option, any later

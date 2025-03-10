@@ -30,7 +30,7 @@ dependency('libfeedback-0.0', version: '>= 0', required: get_option('use-feedbac
 app_name = 'Lotus'
 base_id = 'org.lotus-shell.Lotus'
 base_binary = 'lotus'
-git_url = 'https://gitlab.com/maxrdz/lotus'
+git_url = 'https://gitlab.com/lotus-shell/lotus'
 
 # Cargo build options and environment variables
 cargo_opts = [ '--manifest-path', meson.project_source_root() / 'Cargo.toml' ]

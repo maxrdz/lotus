@@ -9,3 +9,9 @@ check-file = false
 [type.png]
 extend-glob = ["*.png"]
 check-file = false
+
+# False positive in README.md due to HTML tag
+[type.md]
+extend-ignore-re = [
+    "<b>U</b>ser",
+]

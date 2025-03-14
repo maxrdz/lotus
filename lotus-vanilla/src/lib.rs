@@ -21,16 +21,27 @@ use lotus_plugin::*;
 
 static PLUGIN_METADATA: PluginMetadata = PluginMetadata {
     id: "org.lotus-shell.LotusVanillaPlugin",
-    name: "Lotus Vanilla Shell",
     icon: include_bytes!("../../data/icons/hicolor/scalable/apps/icon.png"),
     version: SemanticVersion(0, 1, 0),
-    description: "Provides the default Lotus shell theme and features.",
     plugin_api_version: SemanticVersion(0, 1, 0),
     dependencies: &[],
     permissions: &[PluginPermissions::Gui, PluginPermissions::Theme],
 };
 
-#[unsafe(no_mangle)]
-pub extern "C" fn lotus_plugin_get_metadata() -> &'static PluginMetadata {
-    &PLUGIN_METADATA
+struct LotusVanilla;
+
+impl LotusPlugin for LotusVanilla {
+    fn get_plugin_api_version() -> SemanticVersion {
+        PLUGIN_METADATA.plugin_api_version.clone()
+    }
+
+    fn get_plugin_metadata() -> &'static PluginMetadata {
+        &PLUGIN_METADATA
+    }
+
+    fn update_locale(_lang: String) -> bool {
+        todo!()
+    }
 }
+
+generate_plugin_ffi!(LotusVanilla);

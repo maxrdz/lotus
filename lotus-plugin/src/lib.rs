@@ -18,6 +18,7 @@
 */
 
 /// Based on the semantic versioning standard.
+#[derive(Clone, Copy)]
 #[repr(C)]
 pub struct SemanticVersion(pub u8, pub u8, pub u8);
 
@@ -49,13 +50,10 @@ pub enum PluginPermissions {
 pub struct PluginMetadata {
     /// Reverse DNS style
     pub id: &'static str,
-    pub name: &'static str,
     /// Plugin icon stored as a raw byte array.
     /// Icon should be a PNG image with 128x128 pixel dimensions.
     pub icon: &'static [u8],
     pub version: SemanticVersion,
-    /// A short description of what this plugin does
-    pub description: &'static str,
     /// Lotus Plugin API version your plugin supports
     pub plugin_api_version: SemanticVersion,
     /// Required dependency plugins by plugin ID.
@@ -63,4 +61,66 @@ pub struct PluginMetadata {
     pub dependencies: &'static [&'static str],
     /// Shell plugin API permissions required by this plugin
     pub permissions: &'static [PluginPermissions],
+}
+
+/// Safe Rust function interface that is 1:1 with the C FFI that is generated
+/// by the [`generate_plugin_ffi`] macro.
+pub trait LotusPlugin
+where
+    Self: 'static,
+{
+    fn get_plugin_api_version() -> SemanticVersion;
+    fn get_plugin_metadata() -> &'static PluginMetadata;
+    fn update_locale(lang: String) -> bool;
+}
+
+/// Generates the C FFI for this plugin.
+///
+/// This means mapping the generated FFI to the plugin struct's implementation
+/// of the [`LotusPlugin`] trait.
+///
+#[macro_export]
+macro_rules! generate_plugin_ffi {
+    ($plugin:ident) => {
+        /// Returns the Lotus plugin API version supported by this plugin.
+        ///
+        /// This is the very first function call made by the shell as soon as
+        /// the plugin dynamic library is loaded to memory. This version match
+        /// ensures that all symbols requested by the shell will be found.
+        ///
+        #[unsafe(no_mangle)]
+        pub extern "C" fn lotus_get_plugin_api_version() -> SemanticVersion {
+            $plugin::get_plugin_api_version()
+        }
+
+        /// Gets a pointer to this plugin's metadata struct.
+        ///
+        /// Returns a pointer with a static lifetime to the struct that is initialized
+        /// in static memory.
+        ///
+        #[unsafe(no_mangle)]
+        pub extern "C" fn lotus_get_plugin_metadata() -> &'static PluginMetadata {
+            $plugin::get_plugin_metadata()
+        }
+
+        /// Called from the shell upon a change in the current language translation.
+        ///
+        /// This allows the plugin to react to this locale change event and update the
+        /// translations for all its widgets.
+        ///
+        /// # Safety
+        ///
+        /// - `lang` C string cannot violate the safety rules defined in the docstring
+        /// for [`std::ffi::CStr::from_ptr`].
+        ///
+        #[unsafe(no_mangle)]
+        pub extern "C" fn lotus_update_locale(lang: *const std::ffi::c_char) -> std::ffi::c_int {
+            let c_str: &std::ffi::CStr = unsafe { std::ffi::CStr::from_ptr(lang) };
+
+            match $plugin::update_locale(c_str.to_str().unwrap().to_owned()) {
+                true => 1,
+                false => 0,
+            }
+        }
+    };
 }

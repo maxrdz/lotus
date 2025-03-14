@@ -28,11 +28,5 @@ fn main() {
     // Enable localizations to be applied.
     i18n::init(&requested_languages);
 
-    // Initialize Lfb for haptic feedback.
-    #[cfg(feature = "use-feedbackd")]
-    if let Err(lfb_error) = libfeedback::init(meson::APP_ID) {
-        println!("Failed to initialize Lfb for haptic feedback: {}", lfb_error);
-    }
-
     println!("Halal world");
 }

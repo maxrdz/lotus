@@ -7,5 +7,3 @@ option('target', type: 'string', value: '', description: 'Rustc cross-compilatio
 option('cross-verbose', type: 'boolean', value: false, description: 'Appends the -v flag when invoking cross. Applies if cross compiling.')
 
 option('systemdsystemunitdir', type: 'string', value: '', description: 'Systemd system units directory')
-
-option('use-feedbackd', type: 'boolean', value: true, description: 'Compiles with support for feedbackd on mobile devices.')

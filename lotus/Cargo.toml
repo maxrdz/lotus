@@ -9,7 +9,6 @@ repository.workspace = true
 
 [features]
 default = []
-use-feedbackd = ["dep:libfeedback"]
 
 [build-dependencies]
 vergen = { version = "8", features = ["git", "gitcl"] }
@@ -18,5 +17,6 @@ vergen = { version = "8", features = ["git", "gitcl"] }
 cfg-if.workspace = true
 i18n-embed.workspace = true
 i18n-embed-fl = "0.9.2"
-libfeedback = { git = "https://gitlab.gnome.org/guidog/libfeedback-rs.git", optional = true }
+iced = "0.13"
+libloading = "0.8"
 rust-embed = "8.5"

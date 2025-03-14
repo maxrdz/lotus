@@ -27,10 +27,6 @@ run_command(
 crate_cargo_opts = [ '--package', base_binary ]
 feature_flags = []
 
-if get_option('use-feedbackd')
-  feature_flags += [ 'use-feedbackd' ]
-endif
-
 # Convert FF list to argument string for --features option
 cargo_ff_arg = ''
 first_flag = false

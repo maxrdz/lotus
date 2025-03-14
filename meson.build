@@ -23,9 +23,6 @@ if install_systemdunitdir and systemd_systemdsystemunitdir == ''
   systemd_systemdsystemunitdir = systemd_dep.get_variable('systemdsystemunitdir', pkgconfig_define: ['root_prefix', get_option('prefix')])
 endif
 
-# haptic feedback for mobile devices (via Purism's feedbackd)
-dependency('libfeedback-0.0', version: '>= 0', required: get_option('use-feedbackd'))
-
 # app global variables
 app_name = 'Lotus'
 base_id = 'org.lotus-shell.Lotus'

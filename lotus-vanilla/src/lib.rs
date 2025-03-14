@@ -20,14 +20,14 @@
 use lotus_plugin::*;
 
 static PLUGIN_METADATA: PluginMetadata = PluginMetadata {
-    id: "org.lotus-shell.PluginTest",
-    name: "PluginTest",
+    id: "org.lotus-shell.LotusVanillaPlugin",
+    name: "Lotus Vanilla Shell",
     icon: include_bytes!("../../data/icons/hicolor/scalable/apps/icon.png"),
     version: SemanticVersion(0, 1, 0),
-    description: "A test plugin for the Lotus shell",
+    description: "Provides the default Lotus shell theme and features.",
     plugin_api_version: SemanticVersion(0, 1, 0),
     dependencies: &[],
-    permissions: &[PluginPermissions::Gui],
+    permissions: &[PluginPermissions::Gui, PluginPermissions::Theme],
 };
 
 #[unsafe(no_mangle)]

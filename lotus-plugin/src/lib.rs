@@ -51,6 +51,7 @@ pub struct PluginMetadata {
     pub id: &'static str,
     pub name: &'static str,
     /// Plugin icon stored as a raw byte array.
+    /// Icon should be a PNG image with 128x128 pixel dimensions.
     pub icon: &'static [u8],
     pub version: SemanticVersion,
     /// A short description of what this plugin does

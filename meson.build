@@ -95,7 +95,10 @@ bin_src = meson.project_build_root() / binary
 bin_dst = base_dir / 'bin' / binary
 
 subdir('data')
+
 subdir('lotus')
+subdir('lotus-plugin')
+subdir('lotus-vanilla')
 
 clippy = custom_target(
   'clippy',

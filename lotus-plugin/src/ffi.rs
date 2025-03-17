@@ -61,11 +61,11 @@ macro_rules! generate_plugin_ffi {
         ///
         /// # Panic
         ///
-        /// If the [`std::ffi::CStr`] made from the [`*const std::ffi::c_char`] cannot
+        /// If the [`std::ffi::CStr`] made from the [`*const libc::c_char`] cannot
         /// be converted into a [`String`], this function will panic.
         ///
         #[unsafe(no_mangle)]
-        pub extern "C" fn lotus_update_locale(lang: *const std::ffi::c_char) -> std::ffi::c_uint {
+        pub extern "C" fn lotus_update_locale(lang: *const libc::c_char) -> u8 {
             let c_str: &std::ffi::CStr = unsafe { std::ffi::CStr::from_ptr(lang) };
 
             match $plugin::update_locale(c_str.to_str().unwrap().to_owned()) {

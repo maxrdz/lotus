@@ -21,12 +21,11 @@
 
 use super::*;
 use libloading::{Library, Symbol};
-use std::ffi::{c_char, c_uint};
 
 pub struct PluginFFI<'s> {
     pub get_plugin_api_version: Symbol<'s, unsafe extern "C" fn() -> SemanticVersion>,
     pub get_plugin_metadata: Symbol<'s, unsafe extern "C" fn() -> &'static PluginMetadata>,
-    pub update_locale: Symbol<'s, unsafe extern "C" fn(*const c_char) -> c_uint>,
+    pub update_locale: Symbol<'s, unsafe extern "C" fn(*const libc::c_char) -> u8>,
 }
 
 /// Represents a loaded dynamic library for providing a shell plugin.

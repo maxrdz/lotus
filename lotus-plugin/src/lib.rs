@@ -17,6 +17,8 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+pub use libc;
+
 #[cfg(feature = "plugin")]
 pub mod ffi;
 #[cfg(feature = "loader")]

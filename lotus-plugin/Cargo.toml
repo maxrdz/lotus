@@ -12,7 +12,8 @@ crate-type = ["rlib"]
 
 [features]
 default = ["plugin"]
-loader = []
+loader = ["dep:libloading"]
 plugin = []
 
 [dependencies]
+libloading = { version = "0.8", optional = true}

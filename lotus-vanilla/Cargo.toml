@@ -11,4 +11,4 @@ repository.workspace = true
 crate-type = ["cdylib"]
 
 [dependencies]
-lotus-plugin = { path = "../lotus-plugin", version = "*" }
+lotus-plugin = { path = "../lotus-plugin", version = "0.1.0" }

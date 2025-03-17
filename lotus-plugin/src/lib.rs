@@ -19,6 +19,8 @@
 
 #[cfg(feature = "plugin")]
 pub mod ffi;
+#[cfg(feature = "loader")]
+pub mod loader;
 
 /// Based on the semantic versioning standard.
 #[derive(Clone, Copy)]

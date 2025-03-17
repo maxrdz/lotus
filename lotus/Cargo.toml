@@ -18,5 +18,5 @@ cfg-if.workspace = true
 i18n-embed.workspace = true
 i18n-embed-fl = "0.9.2"
 iced = "0.13"
-libloading = "0.8"
+lotus-plugin = { path = "../lotus-plugin", version = "0.1.0", default-features = false, features = ["loader"]}
 rust-embed = "8.5"

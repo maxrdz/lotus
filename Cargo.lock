@@ -1938,7 +1938,7 @@ dependencies = [
  "i18n-embed",
  "i18n-embed-fl",
  "iced",
- "libloading 0.8.6",
+ "lotus-plugin",
  "rust-embed",
  "vergen",
 ]
@@ -1946,6 +1946,9 @@ dependencies = [
 [[package]]
 name = "lotus-plugin"
 version = "0.1.0"
+dependencies = [
+ "libloading 0.8.6",
+]
 
 [[package]]
 name = "lotus-vanilla"

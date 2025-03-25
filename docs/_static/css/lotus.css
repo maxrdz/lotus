@@ -151,6 +151,10 @@ body, .wy-body-for-nav {
     background-color: var(--search-bg-clr);
 }
 
+.wy-side-nav-search a {
+    color: var(--dark-gray);
+}
+
 .wy-side-nav-search > div.version  {
     color: var(--search-bg-clr);
 }

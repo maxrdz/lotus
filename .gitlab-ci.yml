@@ -21,7 +21,9 @@ stages:
 
 .install-required: &install-required
   - apt-get update
-  - apt-get install -y git meson rustup pkg-config python3 python3-venv
+  - apt-get install -y git cmake meson rustup pkg-config python3 python3-venv
+  - apt-get install -y libsystemd-dev libwayland-dev libfeedback-dev
+  - apt-get install -y libpam0g-dev libpolkit-agent-1-dev
   - rustup default stable
   - rustup component add clippy rustfmt
 

@@ -11,6 +11,7 @@ localedir = prefix / get_option('localedir')
 datadir = prefix / get_option('datadir')
 
 # build dependencies
+git_bin = find_program('git', required: true)
 cargo_bin = find_program('cargo', required: true)
 find_program('ninja', required: true)
 
@@ -23,11 +24,28 @@ if install_systemdunitdir and systemd_systemdsystemunitdir == ''
   systemd_systemdsystemunitdir = systemd_dep.get_variable('systemdsystemunitdir', pkgconfig_define: ['root_prefix', get_option('prefix')])
 endif
 
+# the git branch name is the version name for sphinx docs in the live site
+git_branch = get_option('ci_branch')
+
+if git_branch == ''
+  git_branch = run_command(git_bin, 'branch', '--show-current', check: true).stdout().strip()
+endif
+
 # app global variables
 app_name = 'Lotus'
 base_id = 'org.lotus-shell.Lotus'
 base_binary = 'lotus'
-git_url = 'https://gitlab.com/lotus-shell/lotus'
+
+# sphinx docs configuration
+sphinx_version = '7.4'
+sphinx_release = 'master' # Full version tag (major.minor.patch)
+doc_versions = '[["master", "/master"]]' # Python nested list
+git_host = 'gitlab'
+git_host_user = 'lotus-shell'
+git_host_repo = 'lotus'
+git_url = 'https://gitlab.com/' + git_host_user + '/' + git_host_repo
+website_url = 'https://www.lotus-shell.org'
+sphinx_website_url = 'https://docs.lotus-shell.org'
 
 # Cargo build options and environment variables
 cargo_opts = [ '--manifest-path', meson.project_source_root() / 'Cargo.toml' ]
@@ -99,6 +117,8 @@ subdir('data')
 subdir('lotus')
 subdir('lotus-plugin')
 subdir('lotus-vanilla')
+
+subdir('docs')
 
 clippy = custom_target(
   'clippy',

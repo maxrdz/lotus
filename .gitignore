@@ -3,6 +3,8 @@ debug/
 target/
 vendor/
 vendor.tar
+venv/
+.venv/
 debian/*
 !debian/changelog
 !debian/control

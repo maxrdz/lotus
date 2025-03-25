@@ -6,6 +6,7 @@ variables:
   ORGANIZATION_NAME: "maxrdz"
   PROJECT_NAME: "lotus"
   MIRROR_HOST: "github.com"
+  SPHINX_DEFAULT_DOC_VERSION: "master"
   TYPOS_UPSTREAM: "https://github.com/crate-ci/typos/releases/download/v1.22.7/typos-v1.22.7-x86_64-unknown-linux-musl.tar.gz"
   GCP_PROJECT_NUMBER: 155457831646
   GCP_WORKLOAD_IDENTITY_FEDERATION_POOL_ID: "gitlab-ci-pool" # IAM WIF Pool
@@ -80,5 +81,61 @@ typos:
     - tar -xzf typos-v*.tar.gz -C .tmp/
     - ./.tmp/typos
 
+documentation:
+  image: 'ubuntu:latest'
+  stage: build
+  interruptible: true
+  rules:
+    - changes:
+        - .gitlab-ci.yml
+        - docs/**/*
+        - lotus-plugin/**/*
+  cache:
+    key: meson-cache-doc-$CI_COMMIT_BRANCH
+    paths:
+      - build
+    when: 'always'
+  artifacts:
+    expire_in: 1 week
+    name: 'Project Documentation'
+    paths:
+      - doc
+  script:
+    - *install-required
+    - python3 -m venv venv
+    - source venv/bin/activate
+    - python3 -m pip install -r docs/requirements.txt
+    - meson setup build -Dprofile=debug -Dci_branch=$CI_COMMIT_BRANCH
+    - meson compile sphinx -C build
+    - mkdir doc
+    - cp -r build/sphinx/* doc
+    - chmod -R a=rwx doc
+
 sast:
   stage: test
+
+pages:
+  stage: deploy
+  dependencies:
+    - documentation
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "master")
+      changes:
+        - .gitlab-ci.yml
+        - docs/**/*
+        - lotus-plugin/**/*
+  artifacts:
+    expire_in: 1 week
+    paths:
+      # GitLab Pages only deploys page under "public" directory.
+      - public
+  script:
+    - mkdir public
+    - mv doc/* public
+    - cd public
+    # Make an index.html file in the `public/` dir to reroute to
+    # the `SPHINX_DEFAULT_DOC_VERSION` subdirectory where the default
+    # documentation version is at.
+    # This makes the user not encounter a 404 at the root of the live site.
+    - touch index.html
+    - echo "<meta http-equiv=\"refresh\" content=\"0; url=/${SPHINX_DEFAULT_DOC_VERSION}\">" > index.html

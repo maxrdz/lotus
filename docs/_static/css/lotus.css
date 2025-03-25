@@ -1,0 +1,257 @@
+@font-face {
+    font-family: "Cantarell var";
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+    font-named-instance: "Regular";
+    src: url("../fonts/Cantarell-VF.woff2") format("woff2"),
+      url("../fonts/Cantarell-VF.otf") format("opentype");
+}
+
+:root {
+    --global-max-width: 1440px;
+    --global-margin: 8px;
+    --header-height: 60px;
+
+    /* color palette */
+    --dark-gray: #232323;
+    --light-clr: #f2f5ff;
+    --light-cyan-clr: #e5edff;
+
+    --accent-clr: var(--light-cyan-clr);
+
+    --search-bg-clr: var(--accent-clr);
+
+    /* sizes */
+    --size-xxs: 0.5rem;
+    --size-xs: 0.75rem;
+    --size-s: 0.875rem;
+    --size-base: 1rem;
+    --size-lg: 1.125rem;
+    --size-xl: 1.25rem;
+    --size-2xl: 1.5rem;
+    --size-3xl: 1.875rem;
+    --size-4xl: 2.25rem;
+    --size-5xl: 3rem;
+    --size-6xl: 3.75rem;
+    --size-7xl: 4.5rem;
+    --size-8xl: 6rem;
+    --size-9xl: 8rem;
+    --size-10xl: 10rem;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body, .wy-body-for-nav {
+    background: url("../background.jpg") var(--light-clr);
+}
+
+.wy-grid-for-nav {
+    position: fixed !important;
+    max-width: 1100px;
+    margin: 0 auto;
+    -webkit-box-shadow: 3px 3px 15px rgba(0,0,0,0.15);
+    box-shadow: 3px 3px 15px rgba(0,0,0,0.15);
+    overflow-y: auto;
+    height: calc(100% - var(--header-height));
+}
+
+@media screen and (min-width: 1100px) {
+    .wy-grid-for-nav {
+        left: calc(50% - 550px);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .wy-nav-side {
+        left: inherit;
+    }
+}
+
+/* top bar that appears in mobile version */
+.wy-nav-top {
+    background: var(--dark-gray);
+    height: 55px;
+    line-height: 55px;
+    padding: 0 0;
+}
+
+.wy-nav-top i {
+    font-size: 24px;
+    line-height: 55px;
+    padding: 0 16px;
+
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(50%,transparent),color-stop(50%,#252424));
+    background-image: -webkit-linear-gradient(top,transparent 50%,#252424 50%);
+    background-image: linear-gradient(to bottom,transparent 50%,#252424 50%);
+    background-size: 100% 200%;
+    -webkit-transition: all .25s cubic-bezier(0.4,0,0.2,1);
+    transition: all .25s cubic-bezier(0.4,0,0.2,1);
+}
+
+.wy-nav-top i:hover, .wy-nav-top i:active, .wy-nav-top i:focus {
+    background-position: 0 100%;
+}
+
+.wy-nav-content {
+    background: #fff;
+    border-radius: 4px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* override table width restrictions */
+@media screen and (min-width: 768px) {
+
+    /* Allow tables to overflow with scrollbar */
+    /* Super useful for Donet protocol reference tables! */
+    .wy-table-responsive {
+        /* !important prevents the common CSS stylesheets from overriding
+        this as on RTD they are loaded after this stylesheet */
+        overflow: auto !important;
+    }
+
+    /* Allows table to expand and make use of div's overflow */
+    .wy-table-responsive table {
+        width: max-content !important;
+    }
+
+    /* Allow for text to expand within its cell instead of wrapping */
+    .wy-table-responsive table tbody tr td p a {
+        overflow-wrap: normal !important;
+    }
+
+    .wy-table-responsive table td {
+        white-space: normal !important;
+    }
+}
+
+/* style the version selection links */
+.sidebar-curr-variation {
+    margin: 4px 6px;
+}
+
+.sidebar-variation-link {
+    /*border-bottom: 1px solid white;*/
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* Sphinx side navbar should not expand above our header */
+.wy-nav-side {
+    margin-top: var(--header-height);
+    min-height: fit-content;
+    padding-bottom: 0;
+}
+
+.wy-side-nav-search {
+    background-color: var(--search-bg-clr);
+}
+
+.wy-side-nav-search > div.version  {
+    color: var(--search-bg-clr);
+}
+
+/* make search box border match the background */
+.wy-side-nav-search input[type=text] {
+    border-color: var(--search-bg-clr);
+}
+
+.wy-menu-vertical li span.toctree-expand {
+    margin-left: -1.4em;
+}
+
+.wy-menu-vertical a {
+    padding: .4045em 1.918em;
+}
+
+/* make sidebar link click state match the background color */
+.wy-menu-vertical a:active {
+    background-color: var(--accent-clr);
+}
+
+/* Override font for headers to Cantarell to match project branding */
+.rst-content h1, .rst-content h2, .rst-content h3,
+.rst-content .toctree-wrapper p.caption {
+    font-family: "Cantarell var", "Roboto slab",ff-tisa-web-pro,Georgia,Arial,sans-serif;
+    font-weight: 800;
+}
+
+.rst-content dl.glossary dt {
+    background: inherit;
+    color: inherit;
+    border-top: inherit;
+    padding: inherit;
+}
+
+.rst-versions {
+    position: inherit;
+    bottom: unset;
+    width: 100%;
+    /* Version selector should match nav bar accent color. */
+    background: var(--search-bg-clr);
+}
+
+.rst-versions .rst-current-version {
+    text-align: left;
+    font-family: "Cantarell var", sans-serif;
+    font-weight: 400;
+    color: var(--dark-gray);
+    background-color: var(--search-bg-clr);
+    padding-top: 0px !important;
+}
+
+.rst-versions .rst-current-version > .fa-caret-down {
+    margin-right: var(--global-margin);
+    color: var(--dark-gray);
+}
+
+.rst-versions .rst-current-version > span {
+    font-weight: 800;
+}
+
+.rst-other-versions {
+    text-align: left;
+    padding-top: 0px !important;
+}
+
+.rst-other-versions > dd {
+    color: var(--dark-gray);
+    font-weight: 800;
+}
+
+.rst-versions .rst-other-versions dd a {
+    color: var(--dark-gray);
+}
+
+/* For desktop view, set versions width to wy-nav-side's (300px).*/
+@media screen and (min-width: 768px) {
+    .rst-versions-wrapper {
+        width: 300px;
+    }
+}
+
+.mobile-sidebar-toggle {
+    display: none !important;
+    height: 0;
+    width: 100%;
+    text-align: right;
+    font-size: 80% !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+@media screen and (max-width: 768px) {
+    .mobile-sidebar-toggle {
+        display: inline-block !important;
+        height: auto;
+    }
+
+    /* Fix rst content blocking header on mobile when sidebar open. */
+    .wy-nav-content-wrap.shift {
+        margin-top: var(--header-height);
+    }
+}

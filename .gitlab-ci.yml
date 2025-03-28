@@ -3,12 +3,13 @@ include:
   - template: Security/Secret-Detection.gitlab-ci.yml
 
 variables:
-  ORGANIZATION_NAME: "maxrdz"
+  ORIGIN_ORGANIZATION_NAME: "lotus-shell"
+  MIRROR_ORGANIZATION_NAME: "maxrdz"
   PROJECT_NAME: "lotus"
   MIRROR_HOST: "github.com"
   SPHINX_DEFAULT_DOC_VERSION: "master"
   TYPOS_UPSTREAM: "https://github.com/crate-ci/typos/releases/download/v1.22.7/typos-v1.22.7-x86_64-unknown-linux-musl.tar.gz"
-  GCP_PROJECT_NUMBER: 155457831646
+  GCP_PROJECT_NUMBER: 655833910781
   GCP_WORKLOAD_IDENTITY_FEDERATION_POOL_ID: "gitlab-ci-pool" # IAM WIF Pool
   GCP_WORKLOAD_IDENTITY_FEDERATION_PROVIDER_ID: "gitlab-ci-provider" # Provider from Pool
   GCP_GIT_ACCESS_KEY_SECRET_NAME: "GIT_ACCESS_KEY"
@@ -61,9 +62,9 @@ sync-mirror:
     - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
     - ssh-keyscan ${MIRROR_HOST} >> ~/.ssh/known_hosts
     # Clone repository and push to mirror remote
-    - git clone --mirror https://gitlab.com/${ORGANIZATION_NAME}/${PROJECT_NAME}.git/
+    - git clone --mirror https://gitlab.com/${ORIGIN_ORGANIZATION_NAME}/${PROJECT_NAME}.git/
     - cd ${PROJECT_NAME}.git
-    - ssh-agent sh -c 'ssh-add ~/.ssh/privatekey; git push -v --mirror git@github.com:${ORGANIZATION_NAME}/${PROJECT_NAME}'
+    - ssh-agent sh -c 'ssh-add ~/.ssh/privatekey; git push -v --mirror git@github.com:${MIRROR_ORGANIZATION_NAME}/${PROJECT_NAME}'
 
 commit-validation:
   image: 'python:3.12-alpine'

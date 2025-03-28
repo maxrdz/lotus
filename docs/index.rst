@@ -28,6 +28,28 @@ Lotus Shell Reference Manual
 Welcome to the Lotus shell plugin documentation. Lotus is a free and
 open source touchscreen graphical shell for Linux mobile devices.
 
+Project Mission
+---------------
+
+To deliver a lightweight, modular, touchscreen-friendly shell for GNU/Linux
+mobile devices that provides the **bare minimum set of features** to use your
+mobile device while providing a modular system for extending the shell. The
+stock shell should consume the **least possible amount of system resources**.
+(CPU time, memory, etc.) The user experience should be **modern, respectful,
+and elegant**.
+
+Project Requirements
+--------------------
+
+- Support the **Wayland** display server protocol.
+- Make use of **Freedesktop** (XDG) standards.
+- Support for **internationalization** and **accessibility**.
+- Shell should be **modular** in the sense that it can be extended by third party software.
+- Stock shell should have **zero integration with any existing desktop environment ecosystem**.
+- Support **plugins** that can be loaded at runtime as dynamic libraries.
+- Provide a **plugin API** that exposes a stable FFI (C ABI) via **cdylib** crates.
+- **Rollback mechanism** for hot reloading plugins at runtime without leaving orphaned changes.
+
 Lotus uses Git_ for version control and Meson_ as the build system.
 
 .. _Rust: https://www.rust-lang.org/
